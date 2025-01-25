@@ -2,21 +2,21 @@
 
 import React, { useEffect, useState,useMemo } from 'react';
 import Image from 'next/image';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend,ReferenceLine } from 'recharts';
+import { LineChart, Line, XAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell,ReferenceLine } from 'recharts';
 
 // Data for Comparison Graph
 const comparisonData = [
-  { percentile: 0, value: 0 },
+  { percentile: 0, value: 5 },
   { percentile: 10, value: 10 },
-  { percentile: 20, value: 25 },
+  { percentile: 20, value:  20},
   { percentile: 30, value: 50 },
   { percentile: 40, value: 80 },
-  { percentile: 50, value: 100 },
+  { percentile: 50, value:  90},
   { percentile: 60, value: 80 },
-  { percentile: 70, value: 50 },
+  { percentile: 72, value: 100 },
   { percentile: 80, value: 25 },
   { percentile: 90, value: 10 },
-  { percentile: 100, value: 0 },
+  { percentile: 100, value: 4 },
 ];
 
 // Data for Question Analysis
@@ -77,7 +77,7 @@ const Dashboard = () => {
       />
       <div className="navbar">
         <div className="logo">
-          <img src="/whatbytes_cover.png" alt="" />
+        <Image src="/whatbytes_cover.png" alt="" layout="responsive" width={60} height={30} />
         <h1>  WhatBytes</h1>
         </div>
         <div className="profile">
@@ -98,13 +98,14 @@ const Dashboard = () => {
           <nav>
             <ul>
               <li>
-                <img src="/dashboard.svg" alt="" width={30} height={30} /> Dashboard
+              <Image src="/dashboard.svg" alt="Dashboard Icon" width={30} height={30} /> Dashboard
               </li>
               <li>
-                <img src="/badge.svg" alt="" width={30} height={30} /> Skill Test
+              <Image src="/badge.svg" alt="Skill Test Icon" width={30} height={30} /> Skill Test
               </li>
               <li>
-                <img src="/file.svg" alt="" width={20} height={20} /> Internship
+<Image src="/file.svg" alt="Internship Icon" width={20} height={20} />
+Internship
               </li>
             </ul>
           </nav>
@@ -119,7 +120,8 @@ const Dashboard = () => {
             <div className="left-grid">
               <div className="card">
                 <div className="card-head">
-                  <img src="/html-5.png" alt="" />
+                <Image src="/html-5.png" alt="HTML5 Modal Icon" width={50} height={50} />
+
                   <div className="content">
                     <h3>Hyper Text Markup Language</h3>
                     <p>
@@ -136,21 +138,24 @@ const Dashboard = () => {
                 <h3>Quick Statistics</h3>
                 <div className="grid">
                   <div className="box">
-                    <img src="/trophy.png" alt="" />
+                  <Image src="/trophy.png" alt="Trophy Icon" width={50} height={50} />
                     <div>
                       <h3>{statistics.rank}</h3>
                       <p>Your Rank</p>
                     </div>
                   </div>
                   <div className="box">
-                    <img src="/pad.png" alt="" />
+            
+                  <Image src="/pad.png" alt="Pad Icon" width={50} height={50} />
                     <div>
                       <h3>{statistics.percentile} %</h3>
                       <p>Percentile</p>
                     </div>
                   </div>
                   <div className="box">
-                    <img src="/tick.png" alt="" />
+             
+<Image src="/tick.png" alt="Tick Icon" width={50} height={50} />
+
                     <div>
                       <h3>{statistics.score}/ 15</h3>
                       <p>Correct Answers</p>
@@ -250,19 +255,25 @@ const Dashboard = () => {
                 <div className="content">
                   <h3>Comparison Graph</h3>
                   <p>
-                    <span>You scored {statistics.percentile} percentile</span>, which is lower than the average
-                    percentile of 72% for all engineers who took this assessment.
+                  <span>
+                      You scored {statistics.percentile} percentile, </span>which is  
+                      {statistics.percentile < 72 ? " lower than " : statistics.percentile === 72 ? " equal to " : " greater than "} 
+                      the average percentile of 72% for all engineers who took this assessment.
+                    
+
                   </p>
                 </div>
-                <img src="/line-chart.png" alt="" />
+                <Image src="/line-chart.png" alt="HTML5 Modal Icon" width={50} height={50} />
+
+              
               </div>
               <br />
               <LineChart width={500} height={300} data={comparisonData}>
   <CartesianGrid horizontal={false} vertical={false} />
   <XAxis
     dataKey="percentile"
-    type="number" // Ensures the axis treats values as numbers
-    domain={[0, 100]} // Set the domain to cover the entire range of percentiles
+    type="number" 
+    domain={[0, 100]} 
     label={{ value: 'Percentile', position: 'insideBottom', offset: -5 }}
   />
   <Tooltip />
