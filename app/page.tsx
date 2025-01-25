@@ -4,6 +4,11 @@ import React, { useEffect, useState,useMemo } from 'react';
 import Image from 'next/image';
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell,ReferenceLine } from 'recharts';
 
+type Statistics = {
+  rank: number;
+  percentile: number;
+  score: number;
+};
 // Data for Comparison Graph
 const comparisonData = [
   { percentile: 0, value: 5 },
@@ -25,10 +30,10 @@ const comparisonData = [
 const Dashboard = () => {
   const [isClient, setIsClient] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [statistics, setStatistics] = useState({
+  const [statistics, setStatistics] = useState<Statistics>({
     rank: 1,
     percentile: 30,
-    score:10,
+    score: 10,
   });
 
   const [modalData, setModalData] = useState({
@@ -53,14 +58,14 @@ const Dashboard = () => {
     setIsModalOpen(false);
   };
 
-  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-  
-    // Ensure score is an integer
-    const updatedValue = (name === 'percentile' || name === 'score') 
-    ? parseInt(value, 10) 
-    : value;
-  
+
+    
+    const updatedValue = (name === 'percentile' || name === 'score')
+      ? parseInt(value, 10) || 0  
+      : value;
+
     setModalData((prev) => ({ ...prev, [name]: updatedValue }));
   };
 
