@@ -172,83 +172,88 @@ Internship
 
               {/* modal form  */}
 
-              {isModalOpen && (
-  <div className="modal-overlay">
-    <div className="modal">
-      <div className="header">
-        <h2>Update Score</h2>
-        <img src="html-5.png" alt="" />
-      </div>
+                                  {isModalOpen && (
+                      <div className="modal-overlay">
+                        <div className="modal">
+                          <div className="header">
+                            <h2>Update Score</h2>
+                            <img src="html-5.png" alt="" />
+                          </div>
 
-      <form onSubmit={handleModalSubmit}>
-        <div className="form-group">
-          <div className="point">1</div>
-          <label>Update your Rank</label>
-          <input
-            type="text"
-            name="rank"
-            value={modalData.rank}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        
-        <div className="form-group">
-          <div className="point">2</div>
-          <label>Update your Percentile</label>
-          <input
-            type="text"
-            name="percentile"
-            value={modalData.percentile || ""}
-            onChange={(e) => {
-              const value = e.target.value;
-              if (value === "" || (!isNaN(value) && value >= 0 && value <= 100)) {
-                handleInputChange(e);
-              }
-            }}
-            required
-          />
-          {modalData.percentile !== "" && (modalData.percentile < 0 || modalData.percentile > 100) && (
-            <p className="warning">Please enter a value between 0 and 100.</p>
-          )}
-        </div>
+                          <form onSubmit={handleModalSubmit}>
+                            <div className="form-group">
+                              <div className="point">1</div>
+                              <label>Update your Rank</label>
+                              <input
+                                type="text"
+                                name="rank"
+                                value={modalData.rank}
+                                onChange={handleInputChange}
+                                required
+                              />
+                            </div>
+                            
+                            <div className="form-group">
+                              <div className="point">2</div>
+                              <label>Update your Percentile</label>
+                              <input
+                                type="text"
+                                name="percentile"
+                                value={modalData.percentile || ""}
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  const numericValue = parseFloat(value);
 
-        <div className="form-group">
-          <div className="point">3</div>
-          <label>Update your Current Score (out of 15)</label>
-          <input
-            type="text"
-            name="score"
-            value={modalData.score || ""}
-            onChange={(e) => {
-              const value = e.target.value;
-              if (value === "" || (!isNaN(value) && value >= 0 && value <= 15)) {
-                handleInputChange(e);
-              }
-            }}
-            required
-          />
-          {modalData.score !== "" && (modalData.score < 0 || modalData.score > 15) && (
-            <p className="warning">Please enter a value between 0 and 15.</p>
-          )}
-        </div>
+                                  if (value === "" || (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100)) {
+                                    handleInputChange(e);
+                                  }
+                                }}
+                                required
+                              />
+                              {modalData.percentile !== undefined && (modalData.percentile < 0 || modalData.percentile > 100) && (
+                                <p className="warning">Please enter a value between 0 and 100.</p>
+                              )}
+                            </div>
 
-        <div className="footer">
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={() => setIsModalOpen(false)}
-          >
-            Cancel
-          </button>
-          <button type="submit" className="save-button">
-            Save
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-)}
+                          
+                            <div className="form-group">
+                              <div className="point">3</div>
+                              <label>Update your Current Score (out of 15)</label>
+                              <input
+                                type="text"
+                                name="score"
+                                value={modalData.score || ""}
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  const numericValue = parseFloat(value);
+
+                                  if (value === "" || (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 15)) {
+                                    handleInputChange(e);
+                                  }
+                                }}
+                                required
+                              />
+                              {modalData.score !== undefined && (modalData.score < 0 || modalData.score > 15) && (
+                                <p className="warning">Please enter a value between 0 and 15.</p>
+                              )}
+                            </div>
+
+                            <div className="footer">
+                              <button
+                                type="button"
+                                className="cancel-button"
+                                onClick={() => setIsModalOpen(false)}
+                              >
+                                Cancel
+                              </button>
+                              <button type="submit" className="save-button">
+                                Save
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    )}
 
 
 
@@ -273,83 +278,83 @@ Internship
               
               </div>
               <br />
-              <LineChart width={500} height={300} data={comparisonData}>
-  <CartesianGrid horizontal={false} vertical={false} />
-  <XAxis
-    dataKey="percentile"
-    type="number" 
-    domain={[0, 100]} 
-    label={{ value: 'Percentile', position: 'insideBottom', offset: -5 }}
-  />
-  <Tooltip />
-  <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+                              <LineChart width={500} height={300} data={comparisonData}>
+                  <CartesianGrid horizontal={false} vertical={false} />
+                  <XAxis
+                    dataKey="percentile"
+                    type="number" 
+                    domain={[0, 100]} 
+                    label={{ value: 'Percentile', position: 'insideBottom', offset: -5 }}
+                  />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
 
-  <ReferenceLine
-    x={statistics.percentile}
-    stroke="grey"
-    strokeWidth={1}
-    label={{
-      value: `Your Percentile`,
-      position: 'right',
-      offset: 10,
-      fill: 'black',
-      fontSize: 14,
-      fontWeight: 'bold',
-    }}
-  />
-</LineChart>
+                  <ReferenceLine
+                    x={statistics.percentile}
+                    stroke="grey"
+                    strokeWidth={1}
+                    label={{
+                      value: `Your Percentile`,
+                      position: 'right',
+                      offset: 10,
+                      fill: 'black',
+                      fontSize: 14,
+                      fontWeight: 'bold',
+                    }}
+                  />
+                </LineChart>
 
-            </div>
+                            </div>
 
-            </div>
+                            </div>
 
-            <div className="right-grid">
-            <div className="card">
-  <h3>Syllabus Wise Analysis</h3>
-  <ul>
-    <ul>
-      <div className="progress-container" >
-        <span>HTML Tools, Forms, History</span>
-        <div className="bar-body">
-        <div className="progress-bar" style={{ width: '80%', backgroundColor: '#d9e1ed' }}>
-          <div className="progress" style={{ width: '80%', backgroundColor: '#2d6cdb' }}></div>
-        </div>
-        <span className="progress-percentage" style={{ color: '#2d6cdb' , fontWeight:900}}>80%</span>
-      </div>
-      </div>
-    </ul>
-    <ul>
-      <div className="progress-container">
-        <span>Tags & References in HTML</span>
-        <div className="bar-body">
-        <div className="progress-bar"  style={{ width: '80%', backgroundColor: '#eee0da' }}>
-          <div className="progress" style={{ width: '60%', backgroundColor: '#ff9800' }}></div>
-        </div>
-        <span className="progress-percentage" style={{ color: '#ff9800' , fontWeight:900}}>60%</span>
-      </div>
-      </div>
-    </ul>
-    <ul>
-      <div className="progress-container">
-        <span>Tables & References in HTML</span>
-        <div className="bar-body">
-        <div className="progress-bar"  style={{ width: '80%', backgroundColor: '#eedbdb' }}>
-          <div className="progress" style={{ width: '24%', backgroundColor: '#f44336' }}></div>
-        </div>
-        <span className="progress-percentage" style={{ color: '#f44336' , fontWeight:900}}>24%</span>
-        </div>
-      </div>
-    </ul>
-    <ul>
-      <div className="progress-container">
-        <span>Tables & CSS Basics</span>
-        <div className="bar-body">
-        <div className="progress-bar"  style={{ width: '80%', backgroundColor: '#d5e9de' }}>
-          <div className="progress" style={{ width: '96%', backgroundColor: '#4caf50' }}></div>
-        </div>
-        <span className="progress-percentage" style={{ color: '#4caf50' , fontWeight:900}}>96%</span>
-        </div>
-        
+                            <div className="right-grid">
+                            <div className="card">
+                  <h3>Syllabus Wise Analysis</h3>
+                  <ul>
+                    <ul>
+                      <div className="progress-container" >
+                        <span>HTML Tools, Forms, History</span>
+                        <div className="bar-body">
+                        <div className="progress-bar" style={{ width: '80%', backgroundColor: '#d9e1ed' }}>
+                          <div className="progress" style={{ width: '80%', backgroundColor: '#2d6cdb' }}></div>
+                        </div>
+                        <span className="progress-percentage" style={{ color: '#2d6cdb' , fontWeight:900}}>80%</span>
+                      </div>
+                      </div>
+                    </ul>
+                    <ul>
+                      <div className="progress-container">
+                        <span>Tags & References in HTML</span>
+                        <div className="bar-body">
+                        <div className="progress-bar"  style={{ width: '80%', backgroundColor: '#eee0da' }}>
+                          <div className="progress" style={{ width: '60%', backgroundColor: '#ff9800' }}></div>
+                        </div>
+                        <span className="progress-percentage" style={{ color: '#ff9800' , fontWeight:900}}>60%</span>
+                      </div>
+                      </div>
+                    </ul>
+                    <ul>
+                      <div className="progress-container">
+                        <span>Tables & References in HTML</span>
+                        <div className="bar-body">
+                        <div className="progress-bar"  style={{ width: '80%', backgroundColor: '#eedbdb' }}>
+                          <div className="progress" style={{ width: '24%', backgroundColor: '#f44336' }}></div>
+                        </div>
+                        <span className="progress-percentage" style={{ color: '#f44336' , fontWeight:900}}>24%</span>
+                        </div>
+                      </div>
+                    </ul>
+                    <ul>
+                      <div className="progress-container">
+                        <span>Tables & CSS Basics</span>
+                        <div className="bar-body">
+                        <div className="progress-bar"  style={{ width: '80%', backgroundColor: '#d5e9de' }}>
+                          <div className="progress" style={{ width: '96%', backgroundColor: '#4caf50' }}></div>
+                        </div>
+                        <span className="progress-percentage" style={{ color: '#4caf50' , fontWeight:900}}>96%</span>
+                        </div>
+                        
         
       </div>
     </ul>
